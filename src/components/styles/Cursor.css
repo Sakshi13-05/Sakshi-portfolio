@@ -1,0 +1,45 @@
+.cursor-main {
+  --size: 0px;
+  position: fixed;
+  top: calc(var(--size) / -2);
+  left: calc(var(--size) / -2);
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  background-color: var(--primaryColor);
+  box-shadow: 0px 0px 40px 10px var(--primaryColor);
+  mix-blend-mode: screen; /* Brighter on dark backgrounds */
+  opacity: 0.7;
+  filter: blur(8px);
+  transition: top 0.3s ease-out, left 0.3s ease-out, width 0.3s ease-out,
+    height 0.3s ease-out, background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  will-change: transform, left, top;
+}
+.cursor-icons {
+  top: 10px;
+  left: 10px;
+  height: calc(var(--cursorH) - 20px);
+  background-color: var(--accentColor);
+  box-shadow: 0px 0px 50px 15px var(--accentColor);
+  filter: blur(12px);
+  transition: all 0.5s ease-out, height 0.5s ease-in-out;
+}
+.cursor-hover {
+  transform: scale(2);
+  background-color: var(--accentColor);
+  box-shadow: 0px 0px 50px 15px var(--accentColor);
+}
+.cursor-disable {
+  --size: 0px;
+  opacity: 0;
+}
+@media only screen and (min-width: 600px) {
+  .cursor-main {
+    --size: 40px;
+  }
+  .cursor-disable {
+    --size: 0px;
+  }
+}
