@@ -1,26 +1,37 @@
 import { useState, useCallback } from "react";
 import "./styles/Work.css";
+// If WorkImage is just an <img>, you can replace it with <img src={image} />
 import WorkImage from "./WorkImage";
-import { MdArrowBack, MdArrowForward } from "react-icons/md";
+import { MdArrowBack, MdArrowForward, MdLaunch } from "react-icons/md";
+import { FaGithub } from "react-icons/fa";
 
 const projects = [
   {
-    title: "Govt Compliance AI",
-    category: "AI & Governance Architect",
-    tools: "YOLOv11, Intelligence Fusion Brain, Python, SLA Automation",
-    image: "/images/compliance.png", // Ensure this image is in public/images/
+    title: "Nivaran: Govt Compliance AI",
+    category: "ML & NLP Governance Architect",
+    tools: ["YOLOv11", "NLP", "DBSCAN", "Python", "FastAPI"],
+    description: "An automated triage system for civic grievances using unsupervised clustering and multi-class classification to optimize government SLA response times.",
+    image: "/images/p1.png",
+    liveLink: "https://nivaran-ai.vercel.app/",
+    github: "https://github.com/Rajshree-Dandge/Gov_Complaint_Intell",
+  },
+  {
+    title: "FinSim: Banking Engine",
+    category: "Fintech & ACID Systems",
+    tools: ["Java", "Spring Boot", "PostgreSQL", "Docker", "WebClient"],
+    description: "A production-grade financial simulator ensuring ACID compliance for multi-threaded transactions, integrated with an AI-driven fraud detection layer.",
+    image: "/images/p2.png",
+    liveLink: "https://fin-sim.onrender.com",
+    github: "https://github.com/Sakshi13-05/FIN-SIM",
   },
   {
     title: "MediGo Search Engine",
     category: "MERN Stack Optimization",
-    tools: "MongoDB Atlas Search, Compound Indexing, React.js, Node.js",
-    image: "/images/medigo.png",
-  },
-  {
-    title: "FinSim Engine",
-    category: "Financial System Architecture",
-    tools: "Java, Multi-threading, SQL, ACID Compliance Engine",
-    image: "/images/finsim.png",
+    tools: ["React", "Node.js", "MongoDB Atlas", "Express"],
+    description: "High-performance medical search engine achieving sub-200ms retrieval using compound indexing and fuzzy search logic.",
+    image: "/images/p3.png",
+    liveLink: "https://medi-go-web-app-azdf.vercel.app/",
+    github: "https://github.com/Sakshi13-05/MediGoWebApp",
   },
 ];
 
@@ -28,105 +39,75 @@ const Work = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
-  const goToSlide = useCallback(
-    (index: number) => {
-      if (isAnimating) return;
-      setIsAnimating(true);
-      setCurrentIndex(index);
-      setTimeout(() => setIsAnimating(false), 500);
-    },
-    [isAnimating]
-  );
+  const goToSlide = useCallback((index: number) => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setCurrentIndex(index);
+    setTimeout(() => setIsAnimating(false), 500);
+  }, [isAnimating]);
 
-  const goToPrev = useCallback(() => {
-    const newIndex =
-      currentIndex === 0 ? projects.length - 1 : currentIndex - 1;
-    goToSlide(newIndex);
-  }, [currentIndex, goToSlide]);
-
-  const goToNext = useCallback(() => {
-    const newIndex =
-      currentIndex === projects.length - 1 ? 0 : currentIndex + 1;
-    goToSlide(newIndex);
-  }, [currentIndex, goToSlide]);
+  const goToPrev = () => goToSlide(currentIndex === 0 ? projects.length - 1 : currentIndex - 1);
+  const goToNext = () => goToSlide(currentIndex === projects.length - 1 ? 0 : currentIndex + 1);
 
   return (
-    <div className="work-section" id="work">
+    <section className="work-section" id="work">
       <div className="work-container section-container">
-        <h2>
-          My <span>Work</span>
-        </h2>
+        <h2 className="work-title">Featured <span>Projects</span></h2>
 
         <div className="carousel-wrapper">
-          {/* Navigation Arrows */}
-          <button
-            className="carousel-arrow carousel-arrow-left"
-            onClick={goToPrev}
-            aria-label="Previous project"
-            data-cursor="disable"
-          >
-            <MdArrowBack />
-          </button>
-          <button
-            className="carousel-arrow carousel-arrow-right"
-            onClick={goToNext}
-            aria-label="Next project"
-            data-cursor="disable"
-          >
-            <MdArrowForward />
-          </button>
-
-          {/* Slides */}
           <div className="carousel-track-container">
-            <div
-              className="carousel-track"
-              style={{
-                transform: `translateX(-${currentIndex * 100}%)`,
-              }}
-            >
+            <div className="carousel-track" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
               {projects.map((project, index) => (
                 <div className="carousel-slide" key={index}>
-                  <div className="carousel-content">
-                    <div className="carousel-info">
-                      <div className="carousel-number">
-                        <h3>0{index + 1}</h3>
+                  <div className="project-card">
+
+                    <div className="project-content">
+                      <span className="project-number">0{index + 1}</span>
+                      <h4 className="project-category">{project.category}</h4>
+                      <h3 className="project-title-text">{project.title}</h3>
+                      <p className="project-description">{project.description}</p>
+
+                      <div className="project-tools">
+                        {project.tools.map((tool, i) => (
+                          <span key={i} className="tool-tag">{tool}</span>
+                        ))}
                       </div>
-                      <div className="carousel-details">
-                        <h4>{project.title}</h4>
-                        <p className="carousel-category">
-                          {project.category}
-                        </p>
-                        <div className="carousel-tools">
-                          <span className="tools-label">Tools & Features</span>
-                          <p>{project.tools}</p>
-                        </div>
+
+                      <div className="project-actions">
+                        <a href={project.liveLink} target="_blank" rel="noreferrer" className="btn-primary">
+                          Live Demo <MdLaunch />
+                        </a>
+                        <a href={project.github} target="_blank" rel="noreferrer" className="btn-outline">
+                          View Code <FaGithub />
+                        </a>
                       </div>
                     </div>
-                    <div className="carousel-image-wrapper">
-                      <WorkImage image={project.image} alt={project.title} />
+
+                    <div className="project-image-container">
+                      <div className="image-browser-mockup">
+                        <div className="browser-dots"><span></span><span></span><span></span></div>
+                        <WorkImage image={project.image} alt={project.title} />
+                      </div>
                     </div>
+
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Dot Indicators */}
-          <div className="carousel-dots">
-            {projects.map((_, index) => (
-              <button
-                key={index}
-                className={`carousel-dot ${index === currentIndex ? "carousel-dot-active" : ""
-                  }`}
-                onClick={() => goToSlide(index)}
-                aria-label={`Go to project ${index + 1}`}
-                data-cursor="disable"
-              />
-            ))}
+          <div className="nav-controls">
+            <button className="nav-btn" onClick={goToPrev}><MdArrowBack /></button>
+            <div className="nav-dots">
+              {projects.map((_, i) => (
+                <span key={i} className={`dot ${i === currentIndex ? "active" : ""}`} onClick={() => goToSlide(i)} />
+              ))}
+            </div>
+            <button className="nav-btn" onClick={goToNext}><MdArrowForward /></button>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -196,6 +196,7 @@
    font-weight: 200; 
 } */
 
+
 .landing-info {
   position: absolute;
   right: 50%;
@@ -203,6 +204,9 @@
   bottom: 40px;
   top: inherit;
   z-index: 9;
+  /* FIX 1: Add a width limit so it doesn't expand off-screen */
+  width: 90%;
+  max-width: 600px;
 }
 
 .landing-info h3 {
@@ -235,13 +239,18 @@
 
 h2.landing-info-h2 {
   color: #14b8a6;
-  font-size: 42px;
-  width: 120%;
+  /* FIX 2: Change 120% to 100% and allow wrapping */
+  width: 100%;
   margin: 0;
   font-family: "Geist", sans-serif;
   font-weight: 600;
   position: relative;
   margin-left: -5px;
+  display: block;
+  /* Changed from flex to block for better wrapping */
+  white-space: normal;
+  /* Force text to wrap */
+  overflow-wrap: break-word;
 }
 
 .landing-h2-2 {
@@ -249,149 +258,62 @@ h2.landing-info-h2 {
   top: 0;
 }
 
-.landing-info-h2::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 120%;
-  z-index: 3;
-  background-image: linear-gradient(0deg,
-      var(--backgroundColor) 40%,
-      rgba(0, 0, 0, 0) 110%);
-  top: 0;
-  left: 0;
-}
 
-@media screen and (min-width: 500px) {
-  .landing-circle2 {
-    display: block;
-  }
-
-  .character-model {
-    z-index: 0;
-  }
-
-  .landing-info h3 {
-    font-size: 18px;
-  }
-
-  .landing-intro h2 {
-    font-size: 18px;
-  }
-
-  .landing-intro h1 {
-    font-size: 30px;
-    line-height: 30px;
-  }
-
-  .landing-info h2 {
-    font-size: 35px;
-    line-height: 40px;
-  }
-
-  h2.landing-info-h2 {
-    font-size: 38px;
-  }
-}
-
-@media screen and (min-width: 768px) {
-  .character-model {
-    height: 80vh;
-  }
-
-  .landing-intro h2 {
-    font-size: 25px;
-  }
-
-  .landing-intro h1 {
-    font-size: 40px;
-    line-height: 35px;
-  }
-
-  .landing-info h3 {
-    font-size: 25px;
-  }
-
-  .landing-info h2 {
-    font-size: 45px;
-    line-height: 42px;
-  }
-
-  h2.landing-info-h2 {
-    font-size: 55px;
-  }
-}
 
 @media screen and (min-width: 1025px) {
-  .character-model {
-    height: 100vh;
-    bottom: 0;
-    z-index: 11;
-    position: fixed;
-  }
-
-  .character-model::after,
-  .character-model::before {
-    display: none;
-  }
-
-  .landing-intro {
-    top: 50%;
-    left: auto;
-    right: 66%;
-    transform: translate(0%, -50%);
-  }
-
   .landing-info {
     bottom: auto;
-    top: 51%;
-    z-index: inherit;
-    text-align: left;
-    transform: translate(0%, -50%);
-    right: auto;
-    left: 66%;
-  }
-}
-
-@media screen and (min-width: 1200px) {
-  .landing-intro {
     top: 50%;
-    left: auto;
-    right: 70%;
-    transform: translate(0%, -50%);
+    z-index: 20;
+    /* Ensure it stays above background elements */
+    transform: translateY(-50%);
+
+    /* FIX: Instead of left: 70%, we use right: 40px to create a wall */
+    left: auto !important;
+    right: 40px !important;
+
+    /* FIX: Limits width so it must stay on the right side */
+    width: 40% !important;
+    max-width: 500px;
+    text-align: right;
+    /* Keeps it looking professional on the right */
   }
 
-  .landing-info {
-    bottom: auto;
-    top: 51%;
-    z-index: inherit;
-    text-align: left;
-    transform: translate(0%, -50%);
-    right: auto;
-    left: 70%;
+  h2.landing-info-h2 {
+    color: #14b8a6;
+    margin: 0;
+    font-weight: 600;
+
+    /* FIX: STOP THE OVERFLOW */
+    width: 100% !important;
+    /* Changed from 120% */
+    white-space: normal !important;
+    /* ALLOWS WRAPPING */
+    overflow-wrap: break-word !important;
+    word-wrap: break-word !important;
+    display: block !important;
+
+    /* FIX: FLUID FONT SIZE */
+    font-size: clamp(35px, 4vw, 55px) !important;
+    line-height: 1.1;
   }
 }
 
 @media screen and (min-width: 1600px) {
-  .landing-intro h2 {
-    font-size: 35px;
-  }
-
-  .landing-intro h1 {
-    font-size: 60px;
-    line-height: 55px;
-  }
-
-  .landing-info h3 {
-    font-size: 35px;
-  }
-
-  .landing-info h2 {
-    font-size: 65px;
-    line-height: 62px;
+  .landing-info {
+    right: 80px !important;
+    /* Larger gap for huge screens */
+    max-width: 700px;
   }
 
   h2.landing-info-h2 {
-    font-size: 75px;
+    /* 75px was causing the overlap; 65px is safer and still huge */
+    font-size: clamp(45px, 5vw, 65px) !important;
+    line-height: 1.1;
   }
+}
+
+/* Global safety to prevent horizontal scrollbars */
+#landingDiv {
+  overflow-x: hidden !important;
 }

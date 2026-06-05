@@ -1,64 +1,74 @@
 import "./styles/Career.css";
 
 const Career = () => {
+  const journey = [
+    {
+      role: "SDE Intern (Infosys Springboard)",
+      organization: "Infosys",
+      period: "Current",
+      type: "Experience",
+      description: "Selected as a AI Engineer Intern at Infosys Springboard."
+    },
+    {
+      role: "Software Developer Intern",
+      organization: "Sapphire Infocom Pvt Ltd",
+      period: "Recent",
+      type: "Experience",
+      description: "Optimized React/Node.js applications, reducing API latency by 22%. Implemented secure Role-Based Access Control (RBAC) and participated in Agile design reviews for B2B tools."
+    },
+    {
+      role: "GirlScript Summer of Code (GSSoC) '26",
+      organization: "Open Source Contributor",
+      period: "2026",
+      type: "Achievement",
+      description: "Active contributor to open-source AI and Web architectures. Collaborating with global developers to build scalable solutions and improving codebase efficiency."
+    },
+    {
+      role: "3rd Year B.Tech in Computer Science",
+      organization: "Terna Engineering College, Navi Mumbai",
+      period: "2023 - Present",
+      type: "Education",
+      description: "Ranked 2nd in the Department with a 9.68/10.0 CGPA. Focused on Multi-modal AI, Scalable Backend Systems, and Data Structures."
+    },
+    {
+      role: "Problem Solving & Leadership",
+      organization: "LeetCode & Avalon",
+      period: "Milestones",
+      type: "Achievement",
+      description: "Solved 60+ LeetCode problems (Specialist in Arrays, DP, and Graph Algorithms). Led the Avalon Festival as Sponsorship Head, managing corporate outreach."
+    }
+  ];
+
   return (
     <div className="career-section section-container">
       <div className="career-container">
-        <h2>
-          Education <span>&</span>
-          <br /> Experience
+        <h2 className="section-title">
+          Professional <span>&</span>
+          <br /> Academic Journey
         </h2>
+
         <div className="career-info">
+          {/* Vertical Timeline Line */}
           <div className="career-timeline">
-            <div className="career-dot"></div>
+            <div className="timeline-line"></div>
           </div>
-          <div className="career-info-box">
-            <div className="career-info-in">
-              <div className="career-role">
-                <h4>3rd Year BE in Computer Engineering (9+ CGPA)</h4>
-                <h5>Education</h5>
+
+          <div className="career-info-box-container">
+            {journey.map((item, index) => (
+              <div className="career-info-box" key={index}>
+                <div className="career-info-in">
+                  <div className="career-role">
+                    <h4>{item.role}</h4>
+                    <h5>{item.organization}</h5>
+                  </div>
+                  <h3 className={`period-tag ${item.period === "Current" ? "active" : ""}`}>
+                    {item.period}
+                  </h3>
+                </div>
+                <p>{item.description}</p>
+                <span className="category-label">{item.type}</span>
               </div>
-              <h3>Current</h3>
-            </div>
-            <p>
-              Previously completed 12th from RV Nerurkar High School (88% - 2023) and 10th from Don Bosco High School (91% - 2021).
-            </p>
-          </div>
-          <div className="career-info-box">
-            <div className="career-info-in">
-              <div className="career-role">
-                <h4>SDE Intern</h4>
-                <h5>Saphire Infocom Pvt Ltd</h5>
-              </div>
-              <h3>Recent</h3>
-            </div>
-            <p>
-              Focused on Backend development, designing scalable APIs and optimizing database queries for high-performance applications.
-            </p>
-          </div>
-          <div className="career-info-box">
-            <div className="career-info-in">
-              <div className="career-role">
-                <h4>SDE Intern</h4>
-                <h5>Sudesh Education</h5>
-              </div>
-              <h3>Earlier</h3>
-            </div>
-            <p>
-              Collaborated on software solutions, assisted in feature implementation, and solved key architectural challenges.
-            </p>
-          </div>
-          <div className="career-info-box">
-            <div className="career-info-in">
-              <div className="career-role">
-                <h4>Sponsorship Head & Awards</h4>
-                <h5>Avalon Committee</h5>
-              </div>
-              <h3>Achievements</h3>
-            </div>
-            <p>
-              Led sponsorship drives. Received the Academic Excellence Award and successfully solved 400+ LeetCode problems demonstrating strong algorithmic problem-solving skills.
-            </p>
+            ))}
           </div>
         </div>
       </div>

@@ -14,10 +14,12 @@ const Landing = ({ children }: PropsWithChildren) => {
               <span>CHAVAN</span>
             </h1>
           </div>
+
           <div className="landing-info">
-            <h3>engineer scalable backend systems </h3>
+            <h3>I engineer scalable backend systems</h3>
+            {/* FIX: Simplified div structure to allow CSS wrapping to work */}
             <h2 className="landing-info-h2">
-              <div className="landing-h2-1">and high-performance architectures.</div>
+              and high-performance architectures.
             </h2>
           </div>
         </div>
