@@ -13,7 +13,7 @@ const projects = [
     description: "An automated triage system for civic grievances using unsupervised clustering and multi-class classification to optimize government SLA response times.",
     image: "/images/p1.png",
     liveLink: "https://nivaran-ai.vercel.app/",
-    github: "https://github.com/Rajshree-Dandge/Gov_Complaint_Intell",
+    github: "https://github.com/RGitLog18/NivaranAI",
   },
   {
     title: "FinSim: Banking Engine",
