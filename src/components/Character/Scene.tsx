@@ -10,7 +10,7 @@ const Shapes = () => {
       <ambientLight intensity={0.2} />
       <directionalLight position={[10, 10, 5]} intensity={1} color="#00d2ff" />
       <directionalLight position={[-10, -10, -5]} intensity={0.5} color="#8b5cf6" />
-      
+
       <Float speed={2} rotationIntensity={1.5} floatIntensity={2}>
         <mesh position={[-3, 1.5, -3]}>
           <torusGeometry args={[1, 0.3, 16, 32]} />
@@ -31,7 +31,7 @@ const Shapes = () => {
           <meshPhysicalMaterial color="#ffffff" metalness={0.7} roughness={0.1} wireframe={true} />
         </mesh>
       </Float>
-      
+
       <Float speed={1.8} rotationIntensity={1.8} floatIntensity={2}>
         <mesh position={[2, 2.5, -5]}>
           <octahedronGeometry args={[0.8, 0]} />
@@ -42,17 +42,24 @@ const Shapes = () => {
   );
 };
 
-const Scene = () => {
+const Scene = ({ isMobile }: { isMobile?: boolean }) => {
   const { setLoading } = useLoading();
-  
+
   useEffect(() => {
-    // Quickly mock loading since we aren't loading heavy GLTF files anymore
+    // Signal loading complete immediately — no heavy GLTF files
     setLoading(100);
   }, [setLoading]);
 
+  // On mobile, skip the heavy Canvas entirely to free GPU memory
+  if (isMobile) return null;
+
   return (
     <div className="character-container" style={{ width: '100%', height: '100vh', position: 'fixed', top: 0, left: 0, pointerEvents: 'none', zIndex: 0 }}>
-      <Canvas camera={{ position: [0, 0, 8], fov: 45 }} gl={{ alpha: true, antialias: false, powerPreference: "low-power" }}>
+      <Canvas
+        camera={{ position: [0, 0, 8], fov: 45 }}
+        gl={{ alpha: true, antialias: false, powerPreference: "low-power" }}
+        dpr={1}
+      >
         <Shapes />
       </Canvas>
     </div>

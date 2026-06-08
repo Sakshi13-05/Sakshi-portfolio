@@ -12,6 +12,18 @@ gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText);
 
 export default function setSplitText() {
   ScrollTrigger.config({ ignoreMobileResize: true });
+
+  // On mobile: skip the GSAP animation entirely.
+  // Text is immediately visible via CSS (opacity:1), avoiding invisible-on-scroll issues.
+  if (window.innerWidth < 768) {
+    document.querySelectorAll<HTMLElement>(".para, .title").forEach((el) => {
+      el.style.opacity = "1";
+      el.style.visibility = "visible";
+      el.style.transform = "none";
+    });
+    return;
+  }
+
   if (window.innerWidth < 900) return;
   const paras: NodeListOf<ParaElement> = document.querySelectorAll(".para");
   const titles: NodeListOf<ParaElement> = document.querySelectorAll(".title");

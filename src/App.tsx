@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import "./App.css";
 
 import Lenis from "lenis";
@@ -12,6 +12,14 @@ import { LoadingProvider } from "./context/LoadingProvider";
 gsap.registerPlugin(ScrollTrigger);
 
 const App = () => {
+  const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   useEffect(() => {
     const lenis = new Lenis();
 
@@ -33,9 +41,9 @@ const App = () => {
     <>
       <LoadingProvider>
         <Suspense>
-          <MainContainer>
+          <MainContainer isMobile={isMobile}>
             <Suspense>
-              <CharacterModel />
+              <CharacterModel isMobile={isMobile} />
             </Suspense>
           </MainContainer>
         </Suspense>

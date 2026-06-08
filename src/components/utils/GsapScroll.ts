@@ -5,6 +5,9 @@ export function setCharTimeline(
   character: THREE.Object3D<THREE.Object3DEventMap> | null,
   camera: THREE.PerspectiveCamera
 ) {
+  const isMobile = window.innerWidth < 768;
+  const scrubVal = isMobile ? 0.3 : true;
+
   let intensity: number = 0;
   setInterval(() => {
     intensity = Math.random();
@@ -14,7 +17,7 @@ export function setCharTimeline(
       trigger: ".landing-section",
       start: "top top",
       end: "bottom top",
-      scrub: true,
+      scrub: scrubVal,
       invalidateOnRefresh: true,
     },
   });
@@ -23,7 +26,7 @@ export function setCharTimeline(
       trigger: ".about-section",
       start: "center 55%",
       end: "bottom top",
-      scrub: true,
+      scrub: scrubVal,
       invalidateOnRefresh: true,
     },
   });
@@ -32,7 +35,7 @@ export function setCharTimeline(
       trigger: ".whatIDO",
       start: "top top",
       end: "bottom top",
-      scrub: true,
+      scrub: scrubVal,
       invalidateOnRefresh: true,
     },
   });
@@ -133,12 +136,15 @@ export function setCharTimeline(
 }
 
 export function setAllTimeline() {
+  const isMobile = window.innerWidth < 768;
+  const scrubVal = isMobile ? 0.3 : true;
+
   const careerTimeline = gsap.timeline({
     scrollTrigger: {
       trigger: ".career-section",
       start: "top 30%",
       end: "100% center",
-      scrub: true,
+      scrub: scrubVal,
       invalidateOnRefresh: true,
     },
   });

@@ -4,6 +4,7 @@
   margin: auto;
   position: relative;
   height: var(--vh);
+  will-change: transform, opacity;
 }
 
 .landing-container {
@@ -316,4 +317,50 @@ h2.landing-info-h2 {
 /* Global safety to prevent horizontal scrollbars */
 #landingDiv {
   overflow-x: hidden !important;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   MOBILE PERFORMANCE OVERRIDES  (≤ 767px)
+   • Kill CPU-heavy animations that cause stutter
+   • Keep the landing text immediately visible
+   • Lightweight gradient replaces 3D canvas background
+   ───────────────────────────────────────────────────────────── */
+@media screen and (max-width: 767px) {
+
+  /* Stop the spinning glow circles — they repaint every frame */
+  .landing-circle1,
+  .landing-circle2 {
+    display: none !important;
+  }
+
+  /* Ensure intro text is visible above any fallback background */
+  .landing-intro,
+  .landing-info {
+    position: absolute;
+    z-index: 10;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  /* Mobile-friendly landing layout */
+  .landing-intro {
+    top: 10%;
+    left: 0;
+  }
+
+  .landing-info {
+    bottom: 80px;
+    left: 0 !important;
+    right: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    text-align: left;
+    transform: none !important;
+  }
+
+  h2.landing-info-h2 {
+    font-size: clamp(22px, 6vw, 32px) !important;
+    white-space: normal !important;
+    word-break: break-word;
+  }
 }

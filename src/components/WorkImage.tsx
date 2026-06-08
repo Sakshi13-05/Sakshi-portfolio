@@ -6,6 +6,7 @@ interface Props {
   alt?: string;
   video?: string;
   link?: string;
+  isMobile?: boolean;
 }
 
 const WorkImage = (props: Props) => {
@@ -36,7 +37,11 @@ const WorkImage = (props: Props) => {
             <MdArrowOutward />
           </div>
         )}
-        <img src={props.image} alt={props.alt} />
+        <img
+          src={props.image}
+          alt={props.alt}
+          style={props.isMobile ? { width: '100%', height: 'auto', minHeight: '180px', objectFit: 'cover', opacity: 1, display: 'block' } : undefined}
+        />
         {isVideo && <video src={video} autoPlay muted playsInline loop></video>}
       </a>
     </div>

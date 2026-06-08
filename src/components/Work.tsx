@@ -35,7 +35,7 @@ const projects = [
   },
 ];
 
-const Work = () => {
+const Work = ({ isMobile }: { isMobile?: boolean }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -83,10 +83,13 @@ const Work = () => {
                       </div>
                     </div>
 
-                    <div className="project-image-container">
+                    <div
+                      className="project-image-container"
+                      style={isMobile ? { overflow: 'visible', opacity: 1 } : undefined}
+                    >
                       <div className="image-browser-mockup">
                         <div className="browser-dots"><span></span><span></span><span></span></div>
-                        <WorkImage image={project.image} alt={project.title} />
+                        <WorkImage image={project.image} alt={project.title} isMobile={isMobile} />
                       </div>
                     </div>
 

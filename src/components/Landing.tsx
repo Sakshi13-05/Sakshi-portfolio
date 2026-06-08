@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react";
 import "./styles/Landing.css";
 
-const Landing = ({ children }: PropsWithChildren) => {
+const Landing = ({ children, isMobile }: PropsWithChildren<{ isMobile?: boolean }>) => {
   return (
     <>
       <div className="landing-section" id="landingDiv">
@@ -23,7 +23,9 @@ const Landing = ({ children }: PropsWithChildren) => {
             </h2>
           </div>
         </div>
-        {children}
+        {!isMobile ? children : (
+          <div className="mobile-fallback-bg" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, opacity: 0.1, background: 'linear-gradient(to bottom, #00d2ff, #8b5cf6)' }} />
+        )}
       </div>
     </>
   );

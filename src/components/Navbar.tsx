@@ -8,7 +8,7 @@ import "./styles/Navbar.css";
 gsap.registerPlugin(ScrollSmoother, ScrollTrigger);
 export let smoother: ScrollSmoother;
 
-const Navbar = () => {
+const Navbar = ({ isMobile }: { isMobile?: boolean }) => {
   useEffect(() => {
     smoother = ScrollSmoother.create({
       wrapper: "#smooth-wrapper",
@@ -18,6 +18,7 @@ const Navbar = () => {
       effects: true,
       autoResize: true,
       ignoreMobileResize: true,
+      smoothTouch: isMobile ? false : 0.1,
     });
 
     smoother.scrollTop(0);

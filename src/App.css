@@ -1,17 +1,33 @@
-/* REPLACE YOUR TOP SECTION WITH THIS */
+/* ─── Layout Containers ─────────────────────────────────────── */
 .section-container {
   width: 100%;
-  /* This makes it responsive */
   max-width: 1300px;
-  /* This limits the size on big screens */
   margin: 0 auto;
-  /* Centers the content */
   padding: 0 40px;
-  /* Adds a safety gap so text doesn't touch the edge */
   box-sizing: border-box;
-  /* Ensures padding doesn't add to width */
 }
 
+/* ─── Main scroll container: native-touch momentum ─────────── */
+.container-main {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ─── GPU-compositing layer hints for major sections ─────────
+   These tell the browser to keep each section on its own
+   composited layer so scroll never triggers a repaint.       */
+.landing-section,
+.about-section,
+.work-section,
+.whatIDO,
+.career-section,
+.contact-section {
+  will-change: transform, opacity;
+  /* Promote to composited layer */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* ─── Text rendering ─────────────────────────────────────── */
 .para {
   font-kerning: none;
   -webkit-text-rendering: optimizeSpeed;
@@ -19,21 +35,18 @@
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
 
-  /* --- FIXES TO FIT CONTENT --- */
   max-width: 600px;
   width: 100%;
-  /* Ensures it fits within parent */
   font-size: 1.1rem;
   line-height: 1.7;
   color: #adbac7;
   margin-top: 20px;
 
-  /* Forces long words like "High-performance" to wrap if needed */
   overflow-wrap: break-word;
   word-wrap: break-word;
 }
 
-/* CLEAN UP MEDIA QUERIES */
+/* ─── Responsive ─────────────────────────────────────────── */
 @media only screen and (max-width: 1400px) {
   .section-container {
     max-width: 900px;
@@ -48,6 +61,5 @@
 
   .title {
     font-size: 2rem;
-    /* Shrinks title on mobile */
   }
 }
